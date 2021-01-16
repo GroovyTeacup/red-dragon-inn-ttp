@@ -1,0 +1,9 @@
+{
+  "xMult": 0,
+  "yMult": 0,
+  "zMult": 300,
+  "mode": "color",
+  "passButton": 1,
+  "skipButton": 2,
+  "transferTimeout": 30000
+}
