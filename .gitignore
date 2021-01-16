@@ -1,0 +1,11 @@
+# Ignore everything
+*
+
+# Whitelist scripts, states and manifest
+!*/
+!Scripts/**
+!States/**
+!Manifest.json
+!.gitignore
+
+.idea
