@@ -2,6 +2,8 @@ const {world, globalEvents, GameObject, Vector, Rotator} = require("@tabletop-pl
 const characters = require("./characters")
 const drinks = require("./drinks")
 
+// The position to put spawned character decks for each player.
+
 // Color slot order: 
 // Blue, Green, Red, Teal, Purple, Pink, Orange, Brown, White, Yellow
 
@@ -31,22 +33,10 @@ const rulebooks = {
     ["RDIEventExtraRules"]: "A0EC021243A63B10CD9F248B205D9AAB",
 }
 
-//const rulebookCovers = ["6AAA29CA44AD09F20548E09BE4F59147", "DA5BDFAE4DB2EAF5212094A1737087F0", "4D8D94604B63A6DEF787EB824B22E129", "F7ACA93249629C0330F24490C8FE3D79", "897AC36B4347DA43B6A7B5BA0E336081", "E45DB7C947E96B4687DEC790D4A4B10F", "44513DD8429E43F1211E5B9BF76E641E"]
-//const rulebooks2 = ["1A41624C4DA6AF28DEA3AC92E899F16D", "95EC7C404DD5655FF408D58E604C0E3A", "FC2EDC204235383D141A52A7E389A1B3", "E8517CFD4F54D998BE16E79CC846DFA4", "67D3811443E203F64AE4F2999BA8206F", "792138894C676C7E3DB53EAF0A595CEB", "D71AD4A94E934139427F289E8628F149"]
-
-//world.startDebugMode()
-
-/*globalEvents.onScriptButtonPressed.add((_, idx) => {
-    if (idx == 10 && _.getHighlightedObject())
-    {
-        console.log(_.getHighlightedObject().getTemplateId())
-    }
-})*/
-
-
 // This doesn't really need its own file
-
 world.getAllObjects().forEach((obj, idx) => {
+    // Load the "real" rulebooks when a player tries to change the state or perform an action.
+    // This is done to preserve memory and reduce load times.
     if (rulebooks[obj.getTemplateId()] != null && obj.constructor.name == "MultistateObject" && !obj.getContainer())
     {
         obj.onPrimaryAction.add((obj, ply) => {

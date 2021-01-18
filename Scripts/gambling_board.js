@@ -2,6 +2,7 @@ const {world, globalEvents, refObject, GameObject, Vector, Rotator, Color} = req
 const utils = require("./utils")
 
 const goldTemplate = "F52206E84279316FE39D008AC9BB3A4A"
+const goldStackTemplate = "77B4ACE84F2216C5F93553BE872D306F"
 
 const goldStacks = []
 
@@ -10,8 +11,6 @@ for (let i = 0; i < 10; i++)
     let obj = world.getObjectById("goldStack" + (i + 1))
     goldStacks[i] = obj
 }
-
-let goldStackTemplateId = "77B4ACE84F2216C5F93553BE872D306F"
 
 function goldStackOnTick(obj, dt)
 {
@@ -27,7 +26,7 @@ function goldStackOnTick(obj, dt)
 }
 
 goldStacks.forEach(o => {
-    if (o.getTemplateId() == goldStackTemplateId && o.getContainer() == null)
+    if (o.getTemplateId() == goldStackTemplate && o.getContainer() == null)
     {
         o.spawnPos = o.getPosition()
         o.spawnRot = o.getRotation()
