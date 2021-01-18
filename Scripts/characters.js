@@ -69,11 +69,7 @@ module.exports = {
 
                 // Make sure players can't muck up the containers
                 obj.onTick.add(function(obj, dt) {
-                    obj.setPosition(obj.spawnPos)
-                    obj.setRotation(obj.spawnRot)
-                    obj.setLinearVelocity(new Vector(0, 0, 0))
-
-                    // If the container ends up in another container, take it out.
+                     // If the container ends up in another container, take it out.
                     if (obj.getContainer() != null) 
                     {
                         let container = obj.getContainer()
@@ -94,6 +90,13 @@ module.exports = {
                 obj.onGrab.add(function(obj, ply) {
                     ply.sendChatMessage("Press R on the container to spawn it in front of your player mat area.", new Color(1, 0, 0, 1))
                     ply.showMessage("Press R on the container to spawn it in front of your player mat area.")
+                })
+
+                // Move the container back to where to was after it's released
+                obj.onReleased.add(function(obj, ply, thrown, grabPos, grabRot) {
+                    obj.setPosition(obj.spawnPos)
+                    obj.setRotation(obj.spawnRot)
+                    obj.setLinearVelocity(new Vector(0, 0, 0))
                 })
 
                 //console.log("Propagated events for ", obj.getName())

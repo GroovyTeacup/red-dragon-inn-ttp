@@ -138,10 +138,6 @@ module.exports = {
 
                 // Make sure players can't muck up the containers
                 obj.onTick.add(function(obj, dt) {
-                    obj.setPosition(obj.spawnPos)
-                    obj.setRotation(obj.spawnRot)
-                    obj.setLinearVelocity(new Vector(0, 0, 0))
-
                     // If the container ends up in another container, take it out.
                     if (obj.getContainer() != null) 
                     {
@@ -202,9 +198,16 @@ module.exports = {
                 // When the host grabs one of the containers, let them know to press R to use it.
                 obj.onGrab.add(function(obj, ply) {
                     if (!ply.isHost()) return // If the player isn't the host, don't notify them.
-                     
+
                     ply.sendChatMessage("Press R on the container to spawn this drink deck.", new Color(1, 0, 0, 1))
                     ply.showMessage("Press R on the container to spawn this drink deck.")
+                })
+
+                // Move the container back to where to was after it's released
+                obj.onReleased.add(function(obj, ply) {
+                    obj.setPosition(obj.spawnPos)
+                    obj.setRotation(obj.spawnRot)
+                    obj.setLinearVelocity(new Vector(0, 0, 0))
                 })
 
                 //console.log("Propagated events for ", obj.getName())
